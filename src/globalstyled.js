@@ -44,5 +44,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+font-family: 'Lexend Deca', sans-serif;
 `
 export default GlobalStyle

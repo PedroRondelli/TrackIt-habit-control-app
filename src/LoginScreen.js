@@ -6,8 +6,8 @@ export default function Login() {
     <LoginScreen>
       <div>
         <img src={logo} alt="TrackIt" />
-        <input/>
-        <input/>
+        <input placeholder="email"/>
+        <input placeholder="senha" />
         <button>Entrar</button>
       </div>
     </LoginScreen>
@@ -34,6 +34,17 @@ const LoginScreen = styled.div`
     display:flex;
     flex-direction: column;
     align-items: center;
+  }
+  input{
+    width: 303px;
+    height: 45px;
 
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    :placeholder{
+
+    }
   }
 `;

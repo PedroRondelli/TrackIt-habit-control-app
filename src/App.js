@@ -3,6 +3,7 @@ import Login from "./LoginScreen";
 // import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registration from "./Registration";
+import Habits from "./Habits";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/cadastro" element={<Registration/>}/>
+          <Route path="/habitos" element={<Habits/>}/>
         </Routes>
       </BrowserRouter>
     </>

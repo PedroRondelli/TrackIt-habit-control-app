@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "./Loading";
 import logo from "./loginImage.png";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [isLoading,setLoading]= useState(false)
+  const [isLoading, setLoading] = useState(false);
 
   function handleForm(e) {
     setForm({
@@ -17,13 +18,13 @@ export default function Login() {
 
   function login(e) {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       form
     );
-    promise.then(()=>setLoading(false))
-    promise.catch(()=>setLoading(false))
+    promise.then(() => setLoading(false));
+    promise.catch(() => setLoading(false));
   }
 
   return (
@@ -49,9 +50,13 @@ export default function Login() {
             value={form.password}
             disabled={isLoading}
           />
-          <button disabled={isLoading} type="submit">{isLoading ? <Loading/> : "Entrar"}</button>
+          <button disabled={isLoading} type="submit">
+            {isLoading ? <Loading /> : "Entrar"}
+          </button>
         </form>
-        <p>Não tem uma conta? Cadastre-se!</p>
+        <Link to="/cadastro">
+          <p>Não tem uma conta? Cadastre-se!</p>
+        </Link>
       </main>
     </LoginScreen>
   );
@@ -100,10 +105,10 @@ const LoginScreen = styled.div`
     letter-spacing: 0em;
     text-align: center;
 
-    display:flex;
+    display: flex;
     justify-content: center;
 
-    cursor:pointer;
+    cursor: pointer;
 
     width: 100%;
 
@@ -116,6 +121,7 @@ const LoginScreen = styled.div`
   p {
     color: #52b6ff;
     text-decoration-line: underline;
+    text-decoration-color: #52b6ff;
     font-family: Lexend Deca;
     font-size: 14px;
     line-height: 17px;

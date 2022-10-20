@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "./Loading";
 import logo from "./loginImage.png";
@@ -32,7 +33,7 @@ export default function Registration() {
     <RegistrationScreen>
       <main>
         <img src={logo} alt="TrackIt" />
-        <form  onSubmit={registration}>
+        <form onSubmit={registration}>
           <input
             required
             type="email"
@@ -68,9 +69,13 @@ export default function Registration() {
             placeholder="foto"
             disabled={isLoading}
           />
-          <button disabled={isLoading} type="submit">{isLoading ? <Loading /> : "Cadastrar"}</button>
+          <button disabled={isLoading} type="submit">
+            {isLoading ? <Loading /> : "Cadastrar"}
+          </button>
         </form>
-        <p>Já tem uma conta? Faça login!</p>
+        <Link to="/">
+          <p>Já tem uma conta? Faça login!</p>
+        </Link>
       </main>
     </RegistrationScreen>
   );

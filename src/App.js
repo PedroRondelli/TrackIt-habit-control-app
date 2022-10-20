@@ -1,10 +1,9 @@
 import GlobalStyle from "./globalstyled";
 import Login from "./Login";
-// import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registration from "./Registration";
 import Habits from "./Habits";
-import Loading from "./Loading";
+
 
 export default function App() {
   return (

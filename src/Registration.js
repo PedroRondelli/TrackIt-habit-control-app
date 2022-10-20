@@ -1,17 +1,66 @@
+import axios from "axios";
+import { useState } from "react";
 import styled from "styled-components";
 import logo from "./loginImage.png";
 
 export default function Registration() {
+  const [form, setForm] = useState({
+    email: "",
+    name: "",
+    image: "",
+    password: "",
+  });
+
+  function handleForm(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function registration(e) {
+    e.preventDefault();
+    const promise = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",form
+    );
+    promise.then(()=>alert("funcionou"))
+    promise.catch(()=>alert("não funcionou"))
+  }
+
   return (
     <RegistrationScreen>
       <div>
         <img src={logo} alt="TrackIt" />
-        <form>
-          <input placeholder="email" />
-          <input placeholder="senha" />
-          <input placeholder="nome" />
-          <input placeholder="foto" />
-          <button>Cadastrar</button>
+        <form onSubmit={registration}>
+          <input
+            required
+            type="email"
+            onChange={handleForm}
+            value={form.email}
+            name="email"
+            placeholder="email"
+          />
+          <input
+            required
+            type="password"
+            onChange={handleForm}
+            value={form.password}
+            name="password"
+            placeholder="senha"
+          />
+          <input
+            required
+            onChange={handleForm}
+            value={form.name}
+            name="name"
+            placeholder="nome"
+          />
+          <input
+            type="url"
+            required
+            onChange={handleForm}
+            value={form.image}
+            name="image"
+            placeholder="foto"
+          />
+          <button type="submit">Cadastrar</button>
         </form>
         <p>Já tem uma conta? Faça login!</p>
       </div>

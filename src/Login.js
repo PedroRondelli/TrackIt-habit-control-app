@@ -1,15 +1,49 @@
+import axios from "axios";
+import { useState } from "react";
 import styled from "styled-components";
 import logo from "./loginImage.png";
 
 export default function Login() {
+  const [form, setForm] = useState({ email: "", password: "" });
+
+  function handleForm(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function login(e) {
+    e.preventDefault();
+    const promise = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
+      form
+    );
+    promise.catch(()=> alert(form.email))
+  }
+
   return (
     <LoginScreen>
       <div>
         <img src={logo} alt="TrackIt" />
-        <form>
-          <input placeholder="email" />
-          <input placeholder="senha" />
-          <button>Entrar</button>
+        <form onSubmit={login}>
+          <input
+            type="email"
+            required
+            placeholder="email"
+            name="email"
+            onChange={handleForm}
+            value={form.email}
+          />
+          <input
+            type="password"
+            required
+            placeholder="senha"
+            name="password"
+            onChange={handleForm}
+            value={form.password}
+          />
+          <button type="submit">Entrar</button>
         </form>
         <p>Não tem uma conta? Cadastre-se!</p>
       </div>

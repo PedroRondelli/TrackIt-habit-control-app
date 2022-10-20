@@ -1,5 +1,5 @@
 import GlobalStyle from "./globalstyled";
-import Login from "./LoginScreen";
+import Login from "./Login";
 // import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registration from "./Registration";
@@ -11,9 +11,9 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />}/>
-          <Route path="/cadastro" element={<Registration/>}/>
-          <Route path="/habitos" element={<Habits/>}/>
+          <Route path="/" element={<Login />} />
+          <Route path="/cadastro" element={<Registration />} />
+          <Route path="/habitos" element={<Habits />} />
         </Routes>
       </BrowserRouter>
     </>

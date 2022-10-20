@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "./Loading";
 import logo from "./loginImage.png";
@@ -8,6 +8,7 @@ import logo from "./loginImage.png";
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   function handleForm(e) {
     setForm({
@@ -23,12 +24,18 @@ export default function Login() {
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       form
     );
-    promise.then(() => setLoading(false));
-    promise.catch(() => setLoading(false));
+    promise.then(() => {
+      setLoading(false);
+      navigate("/habitos");
+    });
+    promise.catch(() => {
+      setLoading(false);
+      alert("deu errado");
+    });
   }
 
   return (
-    <LoginScreen>
+    <LoginScreen isLoading={isLoading}>
       <main>
         <img src={logo} alt="TrackIt" />
         <form onSubmit={login}>
@@ -104,6 +111,8 @@ const LoginScreen = styled.div`
     line-height: 26px;
     letter-spacing: 0em;
     text-align: center;
+
+    opacity: ${(props) => (props.isLoading ? "50%" : "100%")};
 
     display: flex;
     justify-content: center;

@@ -4,6 +4,7 @@ import Login from "./Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registration from "./Registration";
 import Habits from "./Habits";
+import Loading from "./Loading";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<Registration />} />
           <Route path="/habitos" element={<Habits />} />
+          <Route path="/teste" element={<Loading/>}/>
         </Routes>
       </BrowserRouter>
     </>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
+import Loading from "./Loading";
 import logo from "./loginImage.png";
 
 export default function Registration() {
@@ -10,6 +11,7 @@ export default function Registration() {
     image: "",
     password: "",
   });
+  const [isLoading, setLoading] = useState(false);
 
   function handleForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,16 +19,18 @@ export default function Registration() {
 
   function registration(e) {
     e.preventDefault();
+    setLoading(true)
     const promise = axios.post(
-      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",form
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
+      form
     );
-    promise.then(()=>alert("funcionou"))
-    promise.catch(()=>alert("não funcionou"))
+    promise.then(() => setLoading(false));
+    promise.catch(() => alert("não funcionou"));
   }
 
   return (
     <RegistrationScreen>
-      <div>
+      <main>
         <img src={logo} alt="TrackIt" />
         <form onSubmit={registration}>
           <input
@@ -60,10 +64,10 @@ export default function Registration() {
             name="image"
             placeholder="foto"
           />
-          <button type="submit">Cadastrar</button>
+          <button type="submit">{isLoading ? <Loading /> : "Cadastrar" }</button>
         </form>
         <p>Já tem uma conta? Faça login!</p>
-      </div>
+      </main>
     </RegistrationScreen>
   );
 }
@@ -76,7 +80,7 @@ const RegistrationScreen = styled.div`
   align-items: center;
   justify-content: center;
 
-  div {
+  main {
     width: 90%;
     height: 85vh;
 
@@ -112,6 +116,10 @@ const RegistrationScreen = styled.div`
     text-align: center;
 
     width: 100%;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
 
     background-color: #52b6ff;
 

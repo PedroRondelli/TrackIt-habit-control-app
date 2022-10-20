@@ -19,20 +19,20 @@ export default function Registration() {
 
   function registration(e) {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
       form
     );
     promise.then(() => setLoading(false));
-    promise.catch(() => alert("não funcionou"));
+    promise.catch(() => setLoading(false));
   }
 
   return (
     <RegistrationScreen>
       <main>
         <img src={logo} alt="TrackIt" />
-        <form onSubmit={registration}>
+        <form  onSubmit={registration}>
           <input
             required
             type="email"
@@ -40,6 +40,7 @@ export default function Registration() {
             value={form.email}
             name="email"
             placeholder="email"
+            disabled={isLoading}
           />
           <input
             required
@@ -48,6 +49,7 @@ export default function Registration() {
             value={form.password}
             name="password"
             placeholder="senha"
+            disabled={isLoading}
           />
           <input
             required
@@ -55,6 +57,7 @@ export default function Registration() {
             value={form.name}
             name="name"
             placeholder="nome"
+            disabled={isLoading}
           />
           <input
             type="url"
@@ -63,8 +66,9 @@ export default function Registration() {
             value={form.image}
             name="image"
             placeholder="foto"
+            disabled={isLoading}
           />
-          <button type="submit">{isLoading ? <Loading /> : "Cadastrar" }</button>
+          <button disabled={isLoading} type="submit">{isLoading ? <Loading /> : "Cadastrar"}</button>
         </form>
         <p>Já tem uma conta? Faça login!</p>
       </main>
@@ -126,6 +130,8 @@ const RegistrationScreen = styled.div`
     color: white;
 
     border-radius: 5px;
+
+    cursor: pointer;
   }
   p {
     color: #52b6ff;

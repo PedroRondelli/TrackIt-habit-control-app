@@ -15,7 +15,6 @@ export default function App() {
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<Registration />} />
           <Route path="/habitos" element={<Habits />} />
-          <Route path="/teste" element={<Loading/>}/>
         </Routes>
       </BrowserRouter>
     </>

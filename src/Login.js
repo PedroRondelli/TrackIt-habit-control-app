@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
+import Loading from "./Loading";
 import logo from "./loginImage.png";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [isLoading,setLoading]= useState(false)
 
   function handleForm(e) {
     setForm({
@@ -15,16 +17,18 @@ export default function Login() {
 
   function login(e) {
     e.preventDefault();
+    setLoading(true)
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       form
     );
-    promise.catch(()=> alert(form.email))
+    promise.then(()=>setLoading(false))
+    promise.catch(()=>setLoading(false))
   }
 
   return (
     <LoginScreen>
-      <div>
+      <main>
         <img src={logo} alt="TrackIt" />
         <form onSubmit={login}>
           <input
@@ -34,6 +38,7 @@ export default function Login() {
             name="email"
             onChange={handleForm}
             value={form.email}
+            disabled={isLoading}
           />
           <input
             type="password"
@@ -42,11 +47,12 @@ export default function Login() {
             name="password"
             onChange={handleForm}
             value={form.password}
+            disabled={isLoading}
           />
-          <button type="submit">Entrar</button>
+          <button disabled={isLoading} type="submit">{isLoading ? <Loading/> : "Entrar"}</button>
         </form>
         <p>Não tem uma conta? Cadastre-se!</p>
-      </div>
+      </main>
     </LoginScreen>
   );
 }
@@ -59,7 +65,7 @@ const LoginScreen = styled.div`
   align-items: center;
   justify-content: center;
 
-  div {
+  main {
     width: 90%;
     height: 85vh;
 
@@ -93,6 +99,11 @@ const LoginScreen = styled.div`
     line-height: 26px;
     letter-spacing: 0em;
     text-align: center;
+
+    display:flex;
+    justify-content: center;
+
+    cursor:pointer;
 
     width: 100%;
 

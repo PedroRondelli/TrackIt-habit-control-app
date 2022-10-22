@@ -30,9 +30,9 @@ export default function Registration() {
       setLoading(false);
       navigate("/");
     });
-    promise.catch(() => {
+    promise.catch((err) => {
       setLoading(false);
-      alert("Deu certo");
+      alert(err.response.data.message);
     });
   }
 

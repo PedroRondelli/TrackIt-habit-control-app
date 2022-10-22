@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "./Loading";
 import logo from "./loginImage.png";
+import { UserContext } from "./providers/userInformation";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {setUser}= useContext(UserContext)
 
   function handleForm(e) {
     setForm({
@@ -24,13 +26,15 @@ export default function Login() {
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       form
     );
-    promise.then(() => {
+    promise.then((resp) => {
       setLoading(false);
-      navigate("/habitos");
+      console.log(resp.data)
+      setUser(resp.data)
+      navigate("/hoje");
     });
-    promise.catch(() => {
+    promise.catch((err) => {
       setLoading(false);
-      alert("deu errado");
+      alert(err.response.data.message);
     });
   }
 

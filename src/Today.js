@@ -1,10 +1,16 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "./providers/userInformation";
 
-export default function Habits() {
+export default function Today() {
+  const {userObject}= useContext(UserContext)
+  console.log(userObject.email)
+
   return (
     <>
       <Header>
         <h1>TrackIt</h1>
+        <img src={userObject.image} alt="imagem perfil" />
       </Header>
     </>
   );
@@ -34,5 +40,10 @@ const Header = styled.div`
     line-height: 49px;
     letter-spacing: 0em;
     color: white;
+  }
+  img {
+    height: 51px;
+    width: 51px;
+    border-radius: 98.5px;
   }
 `;

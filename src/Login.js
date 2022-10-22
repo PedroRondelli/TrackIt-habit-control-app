@@ -10,7 +10,7 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {setUser}= useContext(UserContext)
+  const { setUser } = useContext(UserContext);
 
   function handleForm(e) {
     setForm({
@@ -28,8 +28,7 @@ export default function Login() {
     );
     promise.then((resp) => {
       setLoading(false);
-      console.log(resp.data)
-      setUser(resp.data)
+      setUser(resp.data);
       navigate("/hoje");
     });
     promise.catch((err) => {

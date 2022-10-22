@@ -37,7 +37,7 @@ const Menu = styled.div`
 `;
 
 const Progress = styled.div`
-  width: 20%;
+  width: 100px;
 
   text{
     text-anchor: middle;

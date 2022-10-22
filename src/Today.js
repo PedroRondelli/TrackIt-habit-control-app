@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
+import Footer from "./Footer";
 import { UserContext } from "./providers/userInformation";
 
 export default function Today() {
@@ -21,14 +22,20 @@ export default function Today() {
   }, []);
 
   return (
-    <>
+    <TodayScreen>
       <Header>
         <h1>TrackIt</h1>
         <img src={userObject.image} alt="imagem perfil" />
       </Header>
-    </>
+      <Footer/>
+    </TodayScreen>
   );
 }
+
+const TodayScreen=styled.div`
+  margin-top: 70px;
+  margin-bottom: 100px;
+`
 
 const Header = styled.div`
   position: fixed;

@@ -1,10 +1,24 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { UserContext } from "./providers/userInformation";
 
 export default function Today() {
-  const {userObject}= useContext(UserContext)
-  console.log(userObject.email)
+  const { userObject } = useContext(UserContext);
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${userObject.token}`
+    }
+  }
+
+  useEffect(() => {
+    const promise = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+      config
+    );
+    promise.then((resp) => console.log(resp.data));
+    promise.catch((err) => console.log(err.response.data));
+  }, []);
 
   return (
     <>

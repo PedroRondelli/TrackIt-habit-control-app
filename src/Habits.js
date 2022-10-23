@@ -4,6 +4,7 @@ import { UserContext } from "./providers/userInformation";
 import styled from "styled-components";
 import Footer from "./Footer";
 import axios from "axios";
+import HabitGenerator from "./HabitGenerator";
 
 const NOHABITSTEXT =
   "Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!";
@@ -32,6 +33,7 @@ export default function Habits() {
         <h1>Meus hábitos</h1>
         <button>+</button>
       </PlusHabits>
+      <HabitGenerator/>
       {HabitsList.length === 0 ? (
         <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
       ) : (

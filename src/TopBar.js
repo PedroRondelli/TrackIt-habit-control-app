@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function TopBar({image}) {
+export default function TopBar({ image }) {
   return (
     <Header>
-      <h1>TrackIt</h1>
+      <Link to="/">
+        <h1>TrackIt</h1>
+      </Link>
       <img src={image} alt="imagem perfil" />
     </Header>
   );
@@ -26,12 +29,14 @@ const Header = styled.div`
   background: #126ba5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
-  h1 {
+  a {
     font-family: Playball;
     font-size: 39px;
     line-height: 49px;
     letter-spacing: 0em;
     color: white;
+
+    text-decoration: none;
   }
   img {
     height: 51px;

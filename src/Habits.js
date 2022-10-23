@@ -12,6 +12,7 @@ const NOHABITSTEXT =
 export default function Habits() {
   const { userObject } = useContext(UserContext);
   const [HabitsList, setHabits] = useState([]);
+  const[creating,setCreat]=useState(false)
   const config = {
     headers: {
       Authorization: `Bearer ${userObject.token}`,
@@ -31,9 +32,9 @@ export default function Habits() {
       <TopBar image={userObject.image} />
       <PlusHabits>
         <h1>Meus hábitos</h1>
-        <button>+</button>
+        <button onClick={()=>setCreat(true)} >+</button>
       </PlusHabits>
-      <HabitGenerator/>
+      {creating && <HabitGenerator setCreat={setCreat}/>}
       {HabitsList.length === 0 ? (
         <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
       ) : (

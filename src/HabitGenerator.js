@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const BUTTONS = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-export default function HabitGenerator() {
+export default function HabitGenerator({setCreat}) {
   return (
     <Generator>
       <input placeholder="nome do hábito"></input>

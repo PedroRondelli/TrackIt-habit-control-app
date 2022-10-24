@@ -24,7 +24,7 @@ export default function HabitDay({
   }
 
   return (
-    <DayButton disabled={isLoading} onClick={SelectDay} isSelected={isSelected}>
+    <DayButton data-identifier="week-day-btn" disabled={isLoading} onClick={SelectDay} isSelected={isSelected}>
       {day}
     </DayButton>
   );

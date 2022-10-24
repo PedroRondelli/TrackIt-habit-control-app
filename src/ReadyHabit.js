@@ -23,9 +23,9 @@ export default function ReadyHabit({ habit, fetchHabits }) {
 
   return (
     <HabitContainer>
-      <h1>
+      <h1 data-identifier="habit-name">
         {habit.name}
-        <ion-icon onClick={deleteHabit} name="trash-outline"></ion-icon>
+        <ion-icon data-identifier="delete-habit-btn" onClick={deleteHabit} name="trash-outline"></ion-icon>
       </h1>
       <Week>
         {BUTTONS.map((e, index) => (

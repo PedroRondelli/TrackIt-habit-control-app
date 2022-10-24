@@ -37,13 +37,13 @@ export default function Habits() {
       <TopBar image={userObject.image} />
       <PlusHabits>
         <h1>Meus hábitos</h1>
-        <button onClick={() => setCreat(true)}>+</button>
+        <button data-identifier="create-habit-btn" onClick={() => setCreat(true)}>+</button>
       </PlusHabits>
       {creating && (
         <HabitGenerator fetchHabits={fetchHabits} setCreat={setCreat} />
       )}
       {HabitsList.length === 0 ? (
-        <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
+        <NoHabitsText data-identifier="no-habit-message">{NOHABITSTEXT}</NoHabitsText>
       ) : (
         HabitsList.map((habit) => (
           <Habit>

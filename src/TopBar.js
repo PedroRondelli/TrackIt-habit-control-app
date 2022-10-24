@@ -7,7 +7,7 @@ export default function TopBar({ image }) {
       <Link to="/">
         <h1>TrackIt</h1>
       </Link>
-      <img src={image} alt="imagem perfil" />
+      <img data-identifier="avatar" src={image} alt="imagem perfil" />
     </Header>
   );
 }

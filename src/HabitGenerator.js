@@ -41,6 +41,7 @@ export default function HabitGenerator({ setCreat, fetchHabits }) {
   return (
     <Generator>
       <input
+        data-identifier="input-habit-name"
         onChange={(e) => handleForm(e)}
         name="name"
         placeholder="nome do hábito"
@@ -58,8 +59,8 @@ export default function HabitGenerator({ setCreat, fetchHabits }) {
         ))}
       </Week>
       <SaveAndCancel>
-        <p onClick={() => setCreat(false)}>Cancelar</p>
-        <Save isLoading={isLoading} onClick={sendHabit}>{isLoading ? <Loading /> : "Salvar"}</Save>
+        <p data-identifier="cancel-habit-create-btn" onClick={() => setCreat(false)}>Cancelar</p>
+        <Save data-identifier="save-habit-create-btn" isLoading={isLoading} onClick={sendHabit}>{isLoading ? <Loading /> : "Salvar"}</Save>
       </SaveAndCancel>
     </Generator>
   );

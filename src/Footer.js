@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <Menu>
       <Link to="/habitos">
-        <p>Hábitos</p>
+        <p data-identifier="habit-page-action">Hábitos</p>
       </Link>
       <Progress>
         <Link to="/hoje">
@@ -29,7 +29,7 @@ export default function Footer() {
         </Link>
       </Progress>
       <Link to="/historico">
-        <p>Histórico</p>
+        <p data-identifier="historic-page-action">Histórico</p>
       </Link>
     </Menu>
   );

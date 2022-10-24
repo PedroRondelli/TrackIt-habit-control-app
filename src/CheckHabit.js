@@ -42,12 +42,12 @@ export default function CheckHabit({ habit, token, getDoneHabits }) {
 
   return (
     <HabitOfTheDay done={habit.done}>
-      <NameAndBackground>
+      <NameAndBackground data-identifier="today-infos">
         <h1>{habit.name}</h1>
         <p>{`Sequência atual: ${habit.currentSequence} dias`}</p>
         <p>{`Seu recorde: ${habit.highestSequence} dias`}</p>
       </NameAndBackground>
-      <ion-icon onClick={concludeHabit} name="checkbox"></ion-icon>
+      <ion-icon data-identifier="done-habit-btn" onClick={concludeHabit} name="checkbox"></ion-icon>
     </HabitOfTheDay>
   );
 }

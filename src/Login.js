@@ -43,6 +43,7 @@ export default function Login() {
         <img src={logo} alt="TrackIt" />
         <form onSubmit={login}>
           <input
+            data-identifier="input-email"
             type="email"
             required
             placeholder="email"
@@ -52,6 +53,7 @@ export default function Login() {
             disabled={isLoading}
           />
           <input
+            data-identifier="input-password"
             type="password"
             required
             placeholder="senha"
@@ -60,12 +62,12 @@ export default function Login() {
             value={form.password}
             disabled={isLoading}
           />
-          <button disabled={isLoading} type="submit">
+          <button data-identifier="login-btn" disabled={isLoading} type="submit">
             {isLoading ? <Loading /> : "Entrar"}
           </button>
         </form>
         <Link to="/cadastro">
-          <p>Não tem uma conta? Cadastre-se!</p>
+          <p data-identifier="sign-up-action">Não tem uma conta? Cadastre-se!</p>
         </Link>
       </main>
     </LoginScreen>

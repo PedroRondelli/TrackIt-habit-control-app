@@ -42,6 +42,7 @@ export default function Registration() {
         <img src={logo} alt="TrackIt" />
         <form onSubmit={registration}>
           <input
+            data-identifier="input-email"
             required
             type="email"
             onChange={handleForm}
@@ -51,6 +52,7 @@ export default function Registration() {
             disabled={isLoading}
           />
           <input
+            data-identifier="input-password"
             required
             type="password"
             onChange={handleForm}
@@ -60,6 +62,7 @@ export default function Registration() {
             disabled={isLoading}
           />
           <input
+            data-identifier="input-name"
             required
             onChange={handleForm}
             value={form.name}
@@ -68,6 +71,7 @@ export default function Registration() {
             disabled={isLoading}
           />
           <input
+            data-identifier="input-photo"
             type="url"
             required
             onChange={handleForm}
@@ -81,7 +85,7 @@ export default function Registration() {
           </button>
         </form>
         <Link to="/">
-          <p>Já tem uma conta? Faça login!</p>
+          <p data-identifier="back-to-login-action">Já tem uma conta? Faça login!</p>
         </Link>
       </main>
     </RegistrationScreen>

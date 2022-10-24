@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import HabitDay from "./HabitDay";
 import { UserContext } from "./providers/userInformation";
+import Loading from "./Loading";
 
 export const BUTTONS = ["D", "S", "T", "Q", "Q", "S", "S"];
 
@@ -17,12 +18,14 @@ export default function HabitGenerator({ setCreat, fetchHabits }) {
       Authorization: `Bearer ${userObject.token}`,
     },
   };
+  const [isLoading, setLoading] = useState(false);
 
   function handleForm(e) {
     setCreatedHabit({ ...createdHabit, [e.target.name]: e.target.value });
   }
 
   function sendHabit() {
+    setLoading(true);
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
       createdHabit,
@@ -31,6 +34,7 @@ export default function HabitGenerator({ setCreat, fetchHabits }) {
     promise.then(() => {
       fetchHabits();
       setCreat(false);
+      setLoading(false);
     });
   }
 
@@ -40,6 +44,7 @@ export default function HabitGenerator({ setCreat, fetchHabits }) {
         onChange={(e) => handleForm(e)}
         name="name"
         placeholder="nome do hábito"
+        disabled={isLoading}
       ></input>
       <Week>
         {BUTTONS.map((day, index) => (
@@ -48,12 +53,13 @@ export default function HabitGenerator({ setCreat, fetchHabits }) {
             createdHabit={createdHabit}
             setCreatedHabit={setCreatedHabit}
             day={day}
+            isLoading={isLoading}
           />
         ))}
       </Week>
       <SaveAndCancel>
-        <p onClick={() => console.log(createdHabit)}>Cancelar</p>
-        <Save onClick={sendHabit}>Salvar</Save>
+        <p onClick={() => setCreat(false)}>Cancelar</p>
+        <Save isLoading={isLoading} onClick={sendHabit}>{isLoading ? <Loading /> : "Salvar"}</Save>
       </SaveAndCancel>
     </Generator>
   );
@@ -107,6 +113,10 @@ const Save = styled.button`
   height: 35px;
   width: 84px;
 
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
   font-family: Lexend Deca;
   font-size: 16px;
   font-weight: 400;
@@ -114,6 +124,8 @@ const Save = styled.button`
   letter-spacing: 0em;
 
   color: white;
+
+  opacity: ${(props) => (props.isLoading ? "50%" : "100%")};
 
   background: #52b6ff;
 

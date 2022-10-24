@@ -1,7 +1,8 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import CheckHabit from "./CheckHabit";
 import Footer from "./Footer";
 import { UserContext } from "./providers/userInformation";
 import TopBar from "./TopBar";
@@ -38,6 +39,7 @@ export default function Today() {
       Authorization: `Bearer ${userObject.token}`,
     },
   };
+  const [habitsOfDay, setHabitsOfDay] = useState([]);
 
   useEffect(() => {
     const promise = axios.get(
@@ -46,6 +48,7 @@ export default function Today() {
     );
     promise.then((resp) => {
       console.log(resp.data);
+      setHabitsOfDay(resp.data);
     });
     promise.catch((err) => console.log(err.response.data));
   }, []);
@@ -59,7 +62,11 @@ export default function Today() {
         }`}</h1>
         <p>Nenhum hábito concluído ainda</p>
       </DailyProgress>
-
+      {habitsOfDay.map((habit) => (
+        <IndividualHabit>
+          <CheckHabit habit={habit} />
+        </IndividualHabit>
+      ))}
       <Footer />
     </TodayScreen>
   );
@@ -97,4 +104,10 @@ const DailyProgress = styled.div`
     letter-spacing: 0em;
     color: #bababa;
   }
+`;
+
+const IndividualHabit = styled.div`
+  width: 90vw;
+  display: flex;
+  align-items: center;
 `;

@@ -13,7 +13,7 @@ const NOHABITSTEXT =
 export default function Habits() {
   const { userObject } = useContext(UserContext);
   const [HabitsList, setHabits] = useState([]);
-  const[creating,setCreat]=useState(false)
+  const [creating, setCreat] = useState(false);
   const config = {
     headers: {
       Authorization: `Bearer ${userObject.token}`,
@@ -29,7 +29,7 @@ export default function Habits() {
   }
 
   useEffect(() => {
-    fetchHabits()
+    fetchHabits();
   }, []);
 
   return (
@@ -37,13 +37,19 @@ export default function Habits() {
       <TopBar image={userObject.image} />
       <PlusHabits>
         <h1>Meus hábitos</h1>
-        <button onClick={()=>setCreat(true)} >+</button>
+        <button onClick={() => setCreat(true)}>+</button>
       </PlusHabits>
-      {creating && <HabitGenerator fetchHabits={fetchHabits} setCreat={setCreat}/>}
-      {HabitsList.length === 0 ? 
+      {creating && (
+        <HabitGenerator fetchHabits={fetchHabits} setCreat={setCreat} />
+      )}
+      {HabitsList.length === 0 ? (
         <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
-       : (
-        HabitsList.map((habit) => <Habit><ReadyHabit fetchHabits={fetchHabits} habit={habit}/></Habit>)
+      ) : (
+        HabitsList.map((habit) => (
+          <Habit>
+            <ReadyHabit fetchHabits={fetchHabits} habit={habit} />
+          </Habit>
+        ))
       )}
       <Footer />
     </HabitsScreen>
@@ -108,6 +114,6 @@ const NoHabitsText = styled.p`
   color: #6666;
 `;
 
-const Habit =styled.div`
+const Habit = styled.div`
   width: 90vw;
-`
+`;

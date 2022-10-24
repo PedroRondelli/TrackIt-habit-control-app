@@ -6,25 +6,25 @@ export default function HabitDay({
   setCreatedHabit,
   createdHabit,
   index,
+  isLoading,
 }) {
   const [isSelected, setSelected] = useState(false);
 
   function SelectDay() {
     if (!isSelected) {
       setSelected(true);
-      const newArray =[...createdHabit.days]
-      newArray.push(index)
-      setCreatedHabit({...createdHabit,days:newArray})
-      
-    }else{
-        setSelected(false)
-        const newArray=createdHabit.days.filter((element)=> element!==index)
-        setCreatedHabit({...createdHabit,days:newArray})
+      const newArray = [...createdHabit.days];
+      newArray.push(index);
+      setCreatedHabit({ ...createdHabit, days: newArray });
+    } else {
+      setSelected(false);
+      const newArray = createdHabit.days.filter((element) => element !== index);
+      setCreatedHabit({ ...createdHabit, days: newArray });
     }
   }
 
   return (
-    <DayButton onClick={SelectDay} isSelected={isSelected}>
+    <DayButton disabled={isLoading} onClick={SelectDay} isSelected={isSelected}>
       {day}
     </DayButton>
   );

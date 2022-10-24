@@ -4,10 +4,13 @@ import { BUTTONS } from "./HabitGenerator";
 export default function ReadyHabit({ habit }) {
   return (
     <HabitContainer>
-      <h1>{habit.name}</h1>
+      <h1>
+        {habit.name}
+        <ion-icon name="trash-outline"></ion-icon>
+        </h1>
       <Week>
-        {BUTTONS.map((e) => (
-          <Day>{e}</Day>
+        {BUTTONS.map((e,index) => (
+          <Day includes={habit.days.includes(index)}>{e}</Day>
         ))}
       </Week>
     </HabitContainer>
@@ -21,7 +24,11 @@ const HabitContainer = styled.div`
     font-weight: 400;
     line-height: 25px;
     letter-spacing: 0em;
-    text-align: left;
+
+    display: flex;
+    justify-content: space-between;
+
+    position: relative;
 
     margin: 0px 5px;
 
@@ -42,7 +49,7 @@ const Day = styled.div`
 
   margin: 0 5px;
 
-  background-color: #ffff;
+  background-color: ${(props)=> props.includes?"#6666":"#ffff"};
 
   color: #d5d5d5;
 `;

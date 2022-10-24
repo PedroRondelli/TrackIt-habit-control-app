@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import axios from "axios";
 import HabitGenerator from "./HabitGenerator";
+import ReadyHabit from "./ReadyHabit";
 
 const NOHABITSTEXT =
   "Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!";
@@ -42,7 +43,7 @@ export default function Habits() {
       {HabitsList.length === 0 ? 
         <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
        : (
-        HabitsList.map(() => <PlusHabits />)
+        HabitsList.map((habit) => <Habit><ReadyHabit habit={habit}/></Habit>)
       )}
       <Footer />
     </HabitsScreen>
@@ -106,3 +107,7 @@ const NoHabitsText = styled.p`
 
   color: #6666;
 `;
+
+const Habit =styled.div`
+  width: 90vw;
+`

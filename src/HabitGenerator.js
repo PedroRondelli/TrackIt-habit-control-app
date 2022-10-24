@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HabitDay from "./HabitDay";
 import { UserContext } from "./providers/userInformation";
 
-const BUTTONS = ["D", "S", "T", "Q", "Q", "S", "S"];
+export const BUTTONS = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-export default function HabitGenerator({ setCreat,fetchHabits }) {
+export default function HabitGenerator({ setCreat, fetchHabits }) {
   const [createdHabit, setCreatedHabit] = useState({
     name: "",
     days: [],
@@ -18,7 +17,6 @@ export default function HabitGenerator({ setCreat,fetchHabits }) {
       Authorization: `Bearer ${userObject.token}`,
     },
   };
-  const navigate = useNavigate();
 
   function handleForm(e) {
     setCreatedHabit({ ...createdHabit, [e.target.name]: e.target.value });
@@ -31,8 +29,8 @@ export default function HabitGenerator({ setCreat,fetchHabits }) {
       config
     );
     promise.then(() => {
-      fetchHabits()
-      setCreat(false)
+      fetchHabits();
+      setCreat(false);
     });
   }
 

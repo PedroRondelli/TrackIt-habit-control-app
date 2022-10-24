@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CheckHabit from "./CheckHabit";
 import Footer from "./Footer";
+import { PercentageContext } from "./providers/todayPercentage";
 import { UserContext } from "./providers/userInformation";
 import TopBar from "./TopBar";
 
@@ -34,6 +35,7 @@ const YEAR = [
 
 export default function Today() {
   const { userObject } = useContext(UserContext);
+  const { setPercentage } = useContext(PercentageContext);
   const config = {
     headers: {
       Authorization: `Bearer ${userObject.token}`,
@@ -41,7 +43,17 @@ export default function Today() {
   };
   const [habitsOfDay, setHabitsOfDay] = useState([]);
 
-  function getDoneHabits(){
+  console.log(habitsOfDay.length)
+
+  function showPercentage() {
+    const numberOfhabits = habitsOfDay.length;
+    const numberOfDones = habitsOfDay.filter((e) => e.done).length;
+    const percentageOfDones = 100 / (numberOfhabits / numberOfDones);
+    return percentageOfDones;
+  }
+  setPercentage(showPercentage());
+
+  function getDoneHabits() {
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
       config
@@ -52,7 +64,7 @@ export default function Today() {
     });
     promise.catch((err) => console.log(err.response.data));
   }
-  
+
   useEffect(() => {
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
@@ -76,7 +88,11 @@ export default function Today() {
       </DailyProgress>
       {habitsOfDay.map((habit) => (
         <IndividualHabit>
-          <CheckHabit getDoneHabits={getDoneHabits} token={userObject.token} habit={habit} />
+          <CheckHabit
+            getDoneHabits={getDoneHabits}
+            token={userObject.token}
+            habit={habit}
+          />
         </IndividualHabit>
       ))}
       <Footer />

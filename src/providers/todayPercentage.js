@@ -3,17 +3,10 @@ import { createContext, useState } from "react";
 export const PercentageContext = createContext({});
 
 export const PercentageProvider = (props) => {
-  const [userObject, setUser] = useState({
-    id: 0,
-    name: "",
-    image: "",
-    email: "",
-    password: "",
-    token: "",
-  });
+  const [percentage, setPercentage] = useState(0);
 
   return (
-    <PercentageContext.Provider value={{userObject,setUser}}>
+    <PercentageContext.Provider value={{ percentage, setPercentage }}>
       {props.children}
     </PercentageContext.Provider>
   );

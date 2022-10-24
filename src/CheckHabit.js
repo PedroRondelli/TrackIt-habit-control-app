@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "./providers/userInformation";
 
@@ -65,7 +65,7 @@ const HabitOfTheDay = styled.div`
 
     background: #ebebeb;
     border: 1px solid #e7e7e7;
-    color: ${(props)=>props.done? "green":"white" };
+    color: ${(props) => (props.done ? "green" : "white")};
   }
 
   margin: 15px 0px;

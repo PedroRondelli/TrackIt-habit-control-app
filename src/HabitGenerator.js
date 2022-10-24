@@ -1,17 +1,39 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HabitDay from "./HabitDay";
+import { UserContext } from "./providers/userInformation";
 
 const BUTTONS = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-export default function HabitGenerator({ setCreat }) {
+export default function HabitGenerator({ setCreat,fetchHabits }) {
   const [createdHabit, setCreatedHabit] = useState({
     name: "",
     days: [],
   });
+  const { userObject } = useContext(UserContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userObject.token}`,
+    },
+  };
+  const navigate = useNavigate();
 
   function handleForm(e) {
     setCreatedHabit({ ...createdHabit, [e.target.name]: e.target.value });
+  }
+
+  function sendHabit() {
+    const promise = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+      createdHabit,
+      config
+    );
+    promise.then(() => {
+      fetchHabits()
+      setCreat(false)
+    });
   }
 
   return (
@@ -33,7 +55,7 @@ export default function HabitGenerator({ setCreat }) {
       </Week>
       <SaveAndCancel>
         <p onClick={() => console.log(createdHabit)}>Cancelar</p>
-        <Save>Salvar</Save>
+        <Save onClick={sendHabit}>Salvar</Save>
       </SaveAndCancel>
     </Generator>
   );

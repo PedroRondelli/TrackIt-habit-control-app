@@ -19,12 +19,16 @@ export default function Habits() {
     },
   };
 
-  useEffect(() => {
+  function fetchHabits() {
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
       config
     );
     promise.then((resp) => setHabits(resp.data));
+  }
+
+  useEffect(() => {
+    fetchHabits()
   }, []);
 
   return (
@@ -34,10 +38,10 @@ export default function Habits() {
         <h1>Meus hábitos</h1>
         <button onClick={()=>setCreat(true)} >+</button>
       </PlusHabits>
-      {creating && <HabitGenerator setCreat={setCreat}/>}
-      {HabitsList.length === 0 ? (
+      {creating && <HabitGenerator fetchHabits={fetchHabits} setCreat={setCreat}/>}
+      {HabitsList.length === 0 ? 
         <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
-      ) : (
+       : (
         HabitsList.map(() => <PlusHabits />)
       )}
       <Footer />
@@ -63,6 +67,7 @@ const PlusHabits = styled.div`
   padding: 10px;
 
   width: 90vw;
+  height: 55px;
 
   h1 {
     font-family: Lexend Deca;

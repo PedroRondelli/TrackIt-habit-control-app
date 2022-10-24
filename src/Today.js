@@ -35,7 +35,7 @@ const YEAR = [
 
 export default function Today() {
   const { userObject } = useContext(UserContext);
-  const { setPercentage } = useContext(PercentageContext);
+  const { setPercentage, percentage } = useContext(PercentageContext);
   const config = {
     headers: {
       Authorization: `Bearer ${userObject.token}`,
@@ -43,7 +43,7 @@ export default function Today() {
   };
   const [habitsOfDay, setHabitsOfDay] = useState([]);
 
-  console.log(habitsOfDay.length)
+  console.log(habitsOfDay.length);
 
   function showPercentage() {
     const numberOfhabits = habitsOfDay.length;
@@ -84,7 +84,11 @@ export default function Today() {
         <h1>{`${WEEK[dayjs().day()]}, ${dayjs().date()}/${
           YEAR[dayjs().month()]
         }`}</h1>
-        <p>Nenhum hábito concluído ainda</p>
+        {isNaN(percentage) ? (
+          <p>Nenhum hábito concluído ainda</p>
+        ) : (
+          <p>{`${parseInt(percentage)}% dos hábitos concluídos`}</p>
+        )}
       </DailyProgress>
       {habitsOfDay.map((habit) => (
         <IndividualHabit>

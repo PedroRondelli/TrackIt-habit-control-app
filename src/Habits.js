@@ -43,7 +43,7 @@ export default function Habits() {
       {HabitsList.length === 0 ? 
         <NoHabitsText>{NOHABITSTEXT}</NoHabitsText>
        : (
-        HabitsList.map((habit) => <Habit><ReadyHabit habit={habit}/></Habit>)
+        HabitsList.map((habit) => <Habit><ReadyHabit fetchHabits={fetchHabits} habit={habit}/></Habit>)
       )}
       <Footer />
     </HabitsScreen>

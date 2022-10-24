@@ -1,15 +1,32 @@
+import axios from "axios";
+import { useContext } from "react";
 import styled from "styled-components";
 import { BUTTONS } from "./HabitGenerator";
+import { UserContext } from "./providers/userInformation";
 
-export default function ReadyHabit({ habit }) {
+export default function ReadyHabit({ habit, fetchHabits }) {
+  const { userObject } = useContext(UserContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userObject.token}`,
+    },
+  };
+  function deleteHabit() {
+    const promise = axios.delete(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}`,
+      config
+    );
+    promise.then(() => fetchHabits());
+  }
+
   return (
     <HabitContainer>
       <h1>
         {habit.name}
-        <ion-icon name="trash-outline"></ion-icon>
-        </h1>
+        <ion-icon onClick={deleteHabit} name="trash-outline"></ion-icon>
+      </h1>
       <Week>
-        {BUTTONS.map((e,index) => (
+        {BUTTONS.map((e, index) => (
           <Day includes={habit.days.includes(index)}>{e}</Day>
         ))}
       </Week>
@@ -30,7 +47,7 @@ const HabitContainer = styled.div`
 
     position: relative;
 
-    margin: 0px 5px;
+    margin: 10px 5px;
 
     color: #6666;
   }
@@ -49,7 +66,7 @@ const Day = styled.div`
 
   margin: 0 5px;
 
-  background-color: ${(props)=> props.includes?"#6666":"#ffff"};
+  background-color: ${(props) => (props.includes ? "#6666" : "#ffff")};
 
   color: #d5d5d5;
 `;

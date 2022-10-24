@@ -12,11 +12,13 @@ export default function ReadyHabit({ habit, fetchHabits }) {
     },
   };
   function deleteHabit() {
-    const promise = axios.delete(
-      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}`,
-      config
-    );
-    promise.then(() => fetchHabits());
+    if (window.confirm("Deletar?")) {
+      const promise = axios.delete(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}`,
+        config
+      );
+      promise.then(() => fetchHabits());
+    }
   }
 
   return (

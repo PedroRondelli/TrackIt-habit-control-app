@@ -40,6 +40,18 @@ export default function Today() {
     },
   };
   const [habitsOfDay, setHabitsOfDay] = useState([]);
+
+  function getDoneHabits(){
+    const promise = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+      config
+    );
+    promise.then((resp) => {
+      console.log(resp.data);
+      setHabitsOfDay(resp.data);
+    });
+    promise.catch((err) => console.log(err.response.data));
+  }
   
   useEffect(() => {
     const promise = axios.get(
@@ -64,7 +76,7 @@ export default function Today() {
       </DailyProgress>
       {habitsOfDay.map((habit) => (
         <IndividualHabit>
-          <CheckHabit token={userObject.token} habit={habit} />
+          <CheckHabit getDoneHabits={getDoneHabits} token={userObject.token} habit={habit} />
         </IndividualHabit>
       ))}
       <Footer />

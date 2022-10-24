@@ -3,13 +3,11 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "./providers/userInformation";
 
-export default function CheckHabit({ habit, token }) {
-  const [conclude, setConclude] = useState(false);
-
+export default function CheckHabit({ habit, token, getDoneHabits }) {
   const { userObject } = useContext(UserContext);
-  console.log(token)
-  console.log(userObject.token)
-  console.log(habit.id)
+  console.log(token);
+  console.log(userObject.token);
+  console.log(habit.id);
   const config = {
     headers: {
       Authorization: `Bearer ${userObject.token}`,
@@ -17,23 +15,33 @@ export default function CheckHabit({ habit, token }) {
   };
 
   function concludeHabit() {
-    if (!conclude) {
+    if (!habit.done) {
       const promise = axios.post(
-        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,{},
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,
+        {},
         config
       );
-      promise.then(()=>{
-        setConclude(true)
-        console.log("deu certo")
-      })
-      promise.catch((err)=>alert(err.response.data))
-    }else{
-      console.log("já está concluido")
+      promise.then(() => {
+        getDoneHabits();
+        console.log("fez");
+      });
+      promise.catch((err) => alert(err.response.data.message));
+    } else {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,
+        {},
+        config
+      );
+      promise.then(() => {
+        getDoneHabits();
+        console.log("desfez");
+      });
+      promise.catch((err) => alert(err.response.data.message));
     }
   }
 
   return (
-    <HabitOfTheDay>
+    <HabitOfTheDay done={habit.done}>
       <NameAndBackground>
         <h1>{habit.name}</h1>
         <p>{`Sequência atual: ${habit.currentSequence} dias`}</p>
@@ -57,7 +65,7 @@ const HabitOfTheDay = styled.div`
 
     background: #ebebeb;
     border: 1px solid #e7e7e7;
-    color: white;
+    color: ${(props)=>props.done? "green":"white" };
   }
 
   margin: 15px 0px;

@@ -40,7 +40,7 @@ export default function Today() {
     },
   };
   const [habitsOfDay, setHabitsOfDay] = useState([]);
-
+  
   useEffect(() => {
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
@@ -64,7 +64,7 @@ export default function Today() {
       </DailyProgress>
       {habitsOfDay.map((habit) => (
         <IndividualHabit>
-          <CheckHabit habit={habit} />
+          <CheckHabit token={userObject.token} habit={habit} />
         </IndividualHabit>
       ))}
       <Footer />

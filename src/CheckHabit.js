@@ -1,6 +1,37 @@
+import axios from "axios";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { UserContext } from "./providers/userInformation";
 
-export default function CheckHabit({ habit }) {
+export default function CheckHabit({ habit, token }) {
+  const [conclude, setConclude] = useState(false);
+
+  const { userObject } = useContext(UserContext);
+  console.log(token)
+  console.log(userObject.token)
+  console.log(habit.id)
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userObject.token}`,
+    },
+  };
+
+  function concludeHabit() {
+    if (!conclude) {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,{},
+        config
+      );
+      promise.then(()=>{
+        setConclude(true)
+        console.log("deu certo")
+      })
+      promise.catch((err)=>alert(err.response.data))
+    }else{
+      console.log("já está concluido")
+    }
+  }
+
   return (
     <HabitOfTheDay>
       <NameAndBackground>
@@ -8,7 +39,7 @@ export default function CheckHabit({ habit }) {
         <p>{`Sequência atual: ${habit.currentSequence} dias`}</p>
         <p>{`Seu recorde: ${habit.highestSequence} dias`}</p>
       </NameAndBackground>
-      <ion-icon name="checkbox"></ion-icon>
+      <ion-icon onClick={concludeHabit} name="checkbox"></ion-icon>
     </HabitOfTheDay>
   );
 }

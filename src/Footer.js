@@ -28,7 +28,7 @@ export default function Footer() {
           />
         </Link>
       </Progress>
-      <Link>
+      <Link to="/historico">
         <p>Histórico</p>
       </Link>
     </Menu>

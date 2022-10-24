@@ -6,6 +6,7 @@ import Today from "./Today";
 import { UserProvider } from "./providers/userInformation";
 import Habits from "./Habits";
 import { PercentageProvider } from "./providers/todayPercentage";
+import Historic from "./Historic";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
               <Route path="/cadastro" element={<Registration />} />
               <Route path="/hoje" element={<Today />} />
               <Route path="/habitos" element={<Habits />} />
+              <Route path="/historico" element={<Historic/>}></Route>
             </Routes>
           </UserProvider>
         </PercentageProvider>

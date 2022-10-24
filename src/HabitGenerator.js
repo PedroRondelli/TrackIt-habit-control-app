@@ -1,18 +1,38 @@
+import { useState } from "react";
 import styled from "styled-components";
+import HabitDay from "./HabitDay";
 
 const BUTTONS = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-export default function HabitGenerator({setCreat}) {
+export default function HabitGenerator({ setCreat }) {
+  const [createdHabit, setCreatedHabit] = useState({
+    name: "",
+    days: [],
+  });
+
+  function handleForm(e) {
+    setCreatedHabit({ ...createdHabit, [e.target.name]: e.target.value });
+  }
+
   return (
     <Generator>
-      <input placeholder="nome do hábito"></input>
+      <input
+        onChange={(e) => handleForm(e)}
+        name="name"
+        placeholder="nome do hábito"
+      ></input>
       <Week>
-        {BUTTONS.map((day) => (
-          <DayButton>{day}</DayButton>
+        {BUTTONS.map((day, index) => (
+          <HabitDay
+            index={index}
+            createdHabit={createdHabit}
+            setCreatedHabit={setCreatedHabit}
+            day={day}
+          />
         ))}
       </Week>
       <SaveAndCancel>
-        <p>Cancelar</p>
+        <p onClick={() => console.log(createdHabit)}>Cancelar</p>
         <Save>Salvar</Save>
       </SaveAndCancel>
     </Generator>
@@ -47,17 +67,6 @@ const Generator = styled.div`
   }
 `;
 
-const DayButton = styled.button`
-  width: 30px;
-  height: 30px;
-
-  border: 1px solid #d5d5d5;
-  border-radius: 5px;
-
-  margin: 0 5px;
-
-  color: #d5d5d5;
-`;
 const SaveAndCancel = styled.div`
   display: flex;
   align-items: center;
